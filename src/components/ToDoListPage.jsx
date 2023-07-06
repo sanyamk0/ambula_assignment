@@ -60,7 +60,10 @@ const ToDoListPage = () => {
         <div className="flex flex-wrap justify-stretch mt-4">
           {tasks.map((task) => (
             <article className="m-4 w-min max-w-3xl min-h-fit rounded-xl transition">
-              <li key={task.id} className="rounded-[10px] bg-white p-4 sm:p-6">
+              <li
+                key={task.id}
+                className="rounded-[10px] bg-white p-4 sm:p-6 border-2"
+              >
                 <div className="flex gap-10 flex-row items-center">
                   <input
                     type="checkbox"

@@ -60,9 +60,9 @@ const WeatherWidget = () => {
           Weather Widget
         </h2>
       </div>
-      <div className="relative ">
-        <div className="absolute  left-1/2 z-10 mt-5 flex w-screen max-w-max -translate-x-1/2 px-4">
-          <div className="w-screen text-white bg-gray-500 max-w-md flex-auto overflow-hidden rounded-3xl text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
+      <div className="relative">
+        <div className="absolute left-1/2 z-10 mt-5 flex w-screen max-w-max -translate-x-1/2 px-4">
+          <div className="w-screen text-black bg-white max-w-md flex-auto overflow-hidden rounded-3xl text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
             <div className="p-4">
               <div className="relative mt-2 rounded-md shadow-sm">
                 <input
@@ -102,14 +102,22 @@ const WeatherWidget = () => {
             </div>
             <div className="grid grid-cols-2">
               <div className="grid grid-cols-2">
-                <img src={humidity} alt="Humidty" className="ml-14 mt-8 h-8" />
+                <img
+                  src={humidity}
+                  alt="Humidty"
+                  className="ml-14 mt-8 h-8 invert"
+                />
                 <div className="text-left p-6 pl-0">
                   {data.main ? <h1>{data.main.humidity}%</h1> : "70%"}
                   <p>Humidity</p>
                 </div>
               </div>
               <div className="grid grid-cols-2">
-                <img src={wind} alt="WindSpeed" className="ml-14 mt-8 h-8" />
+                <img
+                  src={wind}
+                  alt="WindSpeed"
+                  className="ml-14 mt-8 h-8 invert"
+                />
                 <div className="text-left p-6 pl-0">
                   {data.wind ? (
                     <h1>{data.wind.speed} Km/h</h1>

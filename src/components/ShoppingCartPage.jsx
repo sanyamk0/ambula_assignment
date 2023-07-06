@@ -696,108 +696,137 @@ const ShoppingCartPage = () => {
   };
 
   return (
-    <div className="bg-white grid grid-cols-2">
-      <div className="rounded-md px-4 py-16 sm:px-6 sm:py-24 max-w-2xl lg:w-3xl bg-[#f0f5f6] lg:px-8 border-2 overflow-y-auto max-h-[82vh]">
-        <div class="mx-auto mb-10 max-w-2xl text-center">
-          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            All Sample Products
-          </h2>
-        </div>
-        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-2 xl:gap-x-8">
-          {products.map((product) => (
-            <div>
-              <div key={product.id} className="group relative">
-                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80">
-                  <img
-                    src={product.thumbnail}
-                    alt={product.title}
-                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                  />
-                </div>
-                <div className="mt-4 flex justify-between">
-                  <div>
-                    <h3 className="text-sm text-gray-700">
-                      <span aria-hidden="true" className="absolute inset-0" />
-                      {product.title}
-                    </h3>
-                    <p className="mt-1 text-sm text-gray-500">
-                      <div className="flex">
-                        <StarIcon className="h-5 w-5 mr-1" />
-                        {product.rating}
-                      </div>
-                    </p>
+    <div className="flex justify-around">
+      <div className="bg-[#f0f5f6] grid grid-cols-2">
+        <div className="rounded-md px-4 py-16 sm:px-6 sm:py-24 max-w-2xl mt-8 lg:w-3xl bg-white lg:px-8 border-2 overflow-y-auto max-h-[82vh]">
+          <div class="mx-auto mb-10 max-w-2xl text-center">
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              All Sample Products
+            </h2>
+          </div>
+          <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-2 xl:gap-x-8">
+            {products.map((product) => (
+              <div>
+                <div key={product.id} className="group relative">
+                  <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80">
+                    <img
+                      src={product.thumbnail}
+                      alt={product.title}
+                      className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                    />
                   </div>
-                  <div className="text-sm font-medium text-gray-900">
-                    <p>
+                  <div className="mt-4 flex justify-between">
+                    <div>
+                      <h3 className="text-sm text-gray-700">
+                        <span aria-hidden="true" className="absolute inset-0" />
+                        {product.title}
+                      </h3>
+                      <p className="mt-1 text-sm text-gray-500">
+                        <div className="flex">
+                          <StarIcon className="h-5 w-5 mr-1" />
+                          {product.rating}
+                        </div>
+                      </p>
+                    </div>
+                    <div className="text-sm font-medium text-gray-900">
+                      <p>
+                        ₹
+                        {(
+                          product.price -
+                          (product.discountPercentage / 100) * product.price
+                        ).toFixed(0)}
+                      </p>
+                      <p className="line-through">₹{product.price}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex mt-2">
+                  <button
+                    onClick={() =>
+                      addItem(
+                        product.title,
+                        product.discountPercentage,
+                        product.thumbnail,
+                        product.price
+                      )
+                    }
+                    className="rounded-md bg-purple-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-purple-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="sticky top-24 h-fit ml-2 w-full rounded-md px-4 py-16 mt-8 sm:px-6 bg-white sm:py-24 max-w-2xl lg:w-3xl lg:px-6 border-2 overflow-y-auto max-h-[82vh]">
+          <div class="mx-auto mb-10 max-w-2xl text-center">
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              Shopping Cart
+            </h2>
+          </div>
+          <ul>
+            {items.map((item) => (
+              <li key={item.id} className="border-2 mb-1 rounded-md">
+                <div className="h-28 m-2 rounded-md flex justify-between p-4">
+                  <div>
+                    <img
+                      src={item.imgSrc}
+                      alt="pic"
+                      className="h-24 w-24 rounded-md"
+                    />
+                  </div>
+                  <div>
+                    <p className="text-left text-sm">{item.name}</p>
+                    <p className="text-left text-sm">
                       ₹
                       {(
-                        product.price -
-                        (product.discountPercentage / 100) * product.price
+                        item.price -
+                        (item.discount / 100) * item.price
                       ).toFixed(0)}
                     </p>
-                    <p className="line-through">₹{product.price}</p>
                   </div>
-                </div>
-              </div>
-              <div className="flex mt-2">
-                <button
-                  onClick={() =>
-                    addItem(
-                      product.title,
-                      product.discountPercentage,
-                      product.thumbnail,
-                      product.price
-                    )
-                  }
-                  className="rounded-md bg-purple-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-purple-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Add to Cart
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="sticky top-24 h-fit ml-2 w-full rounded-md px-4 py-16 sm:px-6 bg-[#f0f5f6] sm:py-24 max-w-2xl lg:w-3xl lg:px-6 border-2 overflow-y-auto max-h-[82vh]">
-        <div class="mx-auto mb-10 max-w-2xl text-center">
-          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Shopping Cart
-          </h2>
-        </div>
-        <ul>
-          {items.map((item) => (
-            <li key={item.id}>
-              <div className="h-32 m-2 rounded-md flex justify-between p-4">
-                <div>
-                  <img
-                    src={item.imgSrc}
-                    alt="pic"
-                    className="h-24 w-24 rounded-md"
-                  />
-                </div>
-                <div>
-                  <p className="text-left text-sm">{item.name}</p>
-                  <p className="text-left text-sm">
-                    ₹
-                    {(item.price - (item.discount / 100) * item.price).toFixed(
-                      0
-                    )}
-                  </p>
-                </div>
-                <div>
-                  <p>Quantity</p>
-                  <div className="flex border-2 rounded-md p-2 justify-between w-28 mt-2">
-                    <button
-                      onClick={() => {
-                        if (item.quantity > 0) {
+                  <div>
+                    <p>Quantity</p>
+                    <div className="flex border-2 rounded-md p-2 justify-between w-28 mt-2">
+                      <button
+                        onClick={() => {
+                          if (item.quantity > 0) {
+                            setItems((prevItems) => {
+                              const updatedItems = prevItems.map((prevItem) => {
+                                if (prevItem.id === item.id) {
+                                  return {
+                                    ...prevItem,
+                                    quantity: prevItem.quantity - 1,
+                                    totalPrice: (
+                                      (prevItem.quantity - 1) *
+                                      (prevItem.price -
+                                        (prevItem.discount / 100) *
+                                          prevItem.price)
+                                    ).toFixed(0),
+                                  };
+                                }
+                                return prevItem;
+                              });
+
+                              return updatedItems;
+                            });
+                          }
+                        }}
+                      >
+                        -
+                      </button>
+                      <p>{item.quantity}</p>
+                      <button
+                        onClick={() => {
                           setItems((prevItems) => {
                             const updatedItems = prevItems.map((prevItem) => {
                               if (prevItem.id === item.id) {
                                 return {
                                   ...prevItem,
-                                  quantity: prevItem.quantity - 1,
+                                  quantity: prevItem.quantity + 1,
                                   totalPrice: (
-                                    (prevItem.quantity - 1) *
+                                    (prevItem.quantity + 1) *
                                     (prevItem.price -
                                       (prevItem.discount / 100) *
                                         prevItem.price)
@@ -809,64 +838,39 @@ const ShoppingCartPage = () => {
 
                             return updatedItems;
                           });
-                        }
-                      }}
-                    >
-                      -
-                    </button>
-                    <p>{item.quantity}</p>
+                        }}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex">
                     <button
-                      onClick={() => {
-                        setItems((prevItems) => {
-                          const updatedItems = prevItems.map((prevItem) => {
-                            if (prevItem.id === item.id) {
-                              return {
-                                ...prevItem,
-                                quantity: prevItem.quantity + 1,
-                                totalPrice: (
-                                  (prevItem.quantity + 1) *
-                                  (prevItem.price -
-                                    (prevItem.discount / 100) * prevItem.price)
-                                ).toFixed(0),
-                              };
-                            }
-                            return prevItem;
-                          });
-
-                          return updatedItems;
-                        });
-                      }}
+                      onClick={() => removeItem(item.id)}
+                      className="rounded-md justify-end bg-purple-500 px-3.5 py-2.5 h-10 text-center text-sm font-semibold text-white shadow-sm hover:bg-purple-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
-                      +
+                      Remove
                     </button>
                   </div>
                 </div>
-                <div className="flex">
-                  <button
-                    onClick={() => removeItem(item.id)}
-                    className="rounded-md justify-end bg-purple-500 px-3.5 py-2.5 h-10 text-center text-sm font-semibold text-white shadow-sm hover:bg-purple-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  >
-                    Remove
-                  </button>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-        <div className="flex justify-evenly">
-          <div className="flex justify-center gap-4 mt-4">
-            <p className="font-medium text-gray-900 ">
-              Total items in Cart: {items.length}
-            </p>
-          </div>
-          <div className="flex justify-center gap-4 mt-4">
-            <p className="font-medium text-gray-900">
-              SubTotal: ₹
-              {items.reduce(
-                (total, item) => total + parseInt(item.totalPrice),
-                0
-              )}
-            </p>
+              </li>
+            ))}
+          </ul>
+          <div className="flex justify-evenly">
+            <div className="flex justify-center gap-4 mt-4">
+              <p className="font-medium text-gray-900">
+                Total items in Cart: {items.length}
+              </p>
+            </div>
+            <div className="flex justify-center gap-4 mt-4">
+              <p className="font-medium text-gray-900">
+                SubTotal: ₹
+                {items.reduce(
+                  (total, item) => total + parseInt(item.totalPrice),
+                  0
+                )}
+              </p>
+            </div>
           </div>
         </div>
       </div>
