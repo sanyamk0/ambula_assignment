@@ -22,6 +22,7 @@ const images = [
 ];
 
 const WeatherWidget = () => {
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setdata] = useState({});
   const [location, setlocation] = useState("");
@@ -30,17 +31,29 @@ const WeatherWidget = () => {
 
   const searchlocation = async (event) => {
     if (event.key === "Enter") {
+      setLoading(true);
+      setError(null);
       await axios
         .get(url)
         .then((response) => {
           setdata(response.data);
+          setLoading(false);
         })
         .catch((error) => {
           setError(error.response.data.message);
+          setLoading(false);
         });
       setlocation("");
     }
   };
+
+  if (loading) {
+    return (
+      <p className="capitalize text-xl font-semibold">
+        Loading weather data...
+      </p>
+    );
+  }
 
   if (error) {
     return (
