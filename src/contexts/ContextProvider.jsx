@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
 import axios from "axios";
-
 const StateContext = createContext();
 
 export const ContextProvider = ({ children }) => {
@@ -17,8 +16,7 @@ export const ContextProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [data, setdata] = useState({});
   const [location, setlocation] = useState("");
-  const API_KEY = "4df84caa1d7698d7c2611247356c44f9";
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${process.env.REACT_APP_API_KEY}`;
 
   const handleSubmit = (e) => {
     e.preventDefault();
