@@ -16,7 +16,8 @@ export const ContextProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [data, setdata] = useState({});
   const [location, setlocation] = useState("");
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${process.env.REACT_APP_API_KEY}`;
+  const API_KEY = "4df84caa1d7698d7c2611247356c44f9";
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}`;
 
   const handleSubmit = (e) => {
     e.preventDefault();
