@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
+import { useStateContext } from "../contexts/ContextProvider";
 
 const ContactPage = () => {
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
-
+  const {
+    firstname,
+    setFirstName,
+    lastname,
+    setLastName,
+    email,
+    setEmail,
+    message,
+    setMessage,
+    submitted,
+    handleSubmit,
+  } = useStateContext();
   return (
     <>
       {submitted ? (

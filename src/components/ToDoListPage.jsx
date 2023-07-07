@@ -1,30 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
+import { useStateContext } from "../contexts/ContextProvider";
 
 const ToDoListPage = () => {
-  const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState("");
-
-  const addTask = () => {
-    if (newTask.trim() !== "") {
-      setTasks([
-        ...tasks,
-        { id: Date.now(), title: newTask, completed: false },
-      ]);
-      setNewTask("");
-    }
-  };
-
-  const markTaskCompleted = (taskId) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === taskId ? { ...task, completed: !task.completed } : task
-    );
-    setTasks(updatedTasks);
-  };
-
-  const removeTask = (taskId) => {
-    const updatedTasks = tasks.filter((task) => task.id !== taskId);
-    setTasks(updatedTasks);
-  };
+  const { addTask, newTask, tasks, setNewTask, markTaskCompleted, removeTask } =
+    useStateContext();
 
   return (
     <div>

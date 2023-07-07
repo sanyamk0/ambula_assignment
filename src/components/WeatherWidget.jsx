@@ -1,5 +1,4 @@
-import { useState } from "react";
-import axios from "axios";
+import { useStateContext } from "../contexts/ContextProvider";
 import {
   clear,
   clouds,
@@ -22,30 +21,8 @@ const images = [
 ];
 
 const WeatherWidget = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [data, setdata] = useState({});
-  const [location, setlocation] = useState("");
-  const API_KEY = "4df84caa1d7698d7c2611247356c44f9";
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}`;
-
-  const searchlocation = async (event) => {
-    if (event.key === "Enter") {
-      setLoading(true);
-      setError(null);
-      await axios
-        .get(url)
-        .then((response) => {
-          setdata(response.data);
-          setLoading(false);
-        })
-        .catch((error) => {
-          setError(error.response.data.message);
-          setLoading(false);
-        });
-      setlocation("");
-    }
-  };
+  const { loading, error, data, location, setlocation, searchlocation } =
+    useStateContext();
 
   if (loading) {
     return (
@@ -62,6 +39,7 @@ const WeatherWidget = () => {
       </p>
     );
   }
+
   let matchedImage = null;
   if (data.weather) {
     matchedImage = images.find((image) => image.name === data.weather[0].main);

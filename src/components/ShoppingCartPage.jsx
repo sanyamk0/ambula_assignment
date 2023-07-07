@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
+import { useStateContext } from "../contexts/ContextProvider";
 
 const products = [
   {
@@ -647,54 +648,7 @@ const products = [
 ];
 
 const ShoppingCartPage = () => {
-  const [items, setItems] = useState([]);
-
-  const addItem = (productName, discountPercentage, thumbnail, price) => {
-    if (productName.trim() !== "") {
-      setItems((prevItems) => {
-        const existingItem = prevItems.find(
-          (item) => item.name === productName
-        );
-
-        if (existingItem) {
-          const updatedItems = prevItems.map((item) => {
-            if (item.name === productName) {
-              return {
-                ...item,
-                quantity: item.quantity + 1,
-                totalPrice: (
-                  (item.quantity + 1) *
-                  (item.price - (item.discount / 100) * item.price)
-                ).toFixed(0),
-              };
-            }
-            return item;
-          });
-
-          return updatedItems;
-        }
-
-        return [
-          ...prevItems,
-          {
-            id: Date.now(),
-            name: productName,
-            discount: discountPercentage,
-            imgSrc: thumbnail,
-            price: price,
-            quantity: 1,
-            totalPrice: (price - (discountPercentage / 100) * price).toFixed(0),
-          },
-        ];
-      });
-    }
-  };
-
-  const removeItem = (itemId) => {
-    const updatedItems = items.filter((item) => item.id !== itemId);
-    setItems(updatedItems);
-  };
-
+  const { items, setItems, addItem, removeItem } = useStateContext();
   return (
     <div className="flex justify-around">
       <div className="bg-[#f0f5f6] grid grid-cols-2">
